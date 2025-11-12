@@ -3,8 +3,6 @@
 
 Comprehensive REST API for real-time, batch, and bulk email verification.
 
-![DataStreams Logo](https://YOUR_STATIC_PATH/ds-logo-new.svg)
-
 ---
 
 ## Overview
@@ -94,9 +92,3 @@ curl -X GET "https://api.datastreams.com/api/v1/email_verify?email=john@datastre
 
 **Support:**
 For assistance, contact: [support@datastreams.ai](mailto:support@datastreams.ai)
-
-```
-If you want, I can also **add sections for Batch and Bulk email verification** with example requests and responses so the README becomes **complete API documentation**.  
-
-Do you want me to do that?
-```
