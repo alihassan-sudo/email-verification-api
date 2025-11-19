@@ -1,54 +1,48 @@
-````markdown
 # DataStreams Email Verification API
 
-Comprehensive REST API for real-time, batch, and bulk email verification.
+A powerful and scalable REST API for real-time, batch, and bulk email verification using DNS, MX, and SMTP checks.
 
 ---
 
-## Overview
+## Base URL
+https://api.datastreams.com/api/v1/
 
-The **DataStreams Email Verification API** offers a reliable and scalable solution to verify email addresses through DNS, MX, and SMTP checks. You can validate single or multiple emails, or upload large files for bulk verification.
+## Authentication
 
-- **Base URL:** `https://api.datastreams.com/api/v1/`
-- **Authentication:** Use the `x-api-key` header for all requests.
+All requests must include the API key:
 
----
+**Header:**
+x-api-key: YOUR_API_KEY
 
-## Authentication & API Keys
-
-Users can create up to **five custom API keys** for project-level access control.
-
-| Feature         | Description                               |
-|-----------------|-------------------------------------------|
-| API Key         | Create, edit or delete existing keys      |
-| Whitelisted IPs | Add or remove allowed IP addresses        |
-| Status          | Active / Inactive                         |
+You can create up to **5 custom API keys** with:
+- Active / Inactive control
+- IP Whitelisting
+- Project-level access separation
 
 ---
 
 ## Verification Types
 
-| Type       | Description                                |
-|------------|--------------------------------------------|
-| Real-Time  | Verify a single email instantly            |
-| Batch      | Verify up to 100 emails in a single call   |
-| Bulk       | Upload files for large-scale verification  |
+| Type       | Description                                      |
+|------------|--------------------------------------------------|
+| Real-Time  | Verify a single email instantly                  |
+| Batch      | Verify up to 100 emails in one request           |
+| Bulk       | Use the Datastreams.ai platform to accomplish it |
 
 ---
 
-## 1. Real-Time Single Email Verification
+# 1. Real-Time Single Email Verification
 
-**Endpoint:**  
-`GET /email_verify?email=EMAIL_ADDRESS`
+### Endpoint
+GET /email_verify?email=EMAIL_ADDRESS
 
-**Example cURL Request:**
+### Example Request
 ```bash
 curl -X GET "https://api.datastreams.com/api/v1/email_verify?email=example@example.com" \
   -H "x-api-key: YOUR_API_KEY"
-````
+```
 
-**Success Response:**
-
+### Success Response
 ```json
 {
   "email": "example@example.com",
@@ -57,12 +51,14 @@ curl -X GET "https://api.datastreams.com/api/v1/email_verify?email=example@examp
   "domain": "example.com",
   "ai_rationale": "This email address has been confirmed as valid, so you're good to send messages there",
   "smtp_provider": "aspmx.l.google.com",
-  "all_mx_records": ["aspmx.l.google.com","alt2.aspmx.l.google.com"]
+  "all_mx_records": [
+    "aspmx.l.google.com",
+    "alt2.aspmx.l.google.com"
+  ]
 }
 ```
 
-**Error Response:**
-
+### Error Response
 ```json
 {
   "error": "Invalid or missing API credentials",
@@ -72,23 +68,22 @@ curl -X GET "https://api.datastreams.com/api/v1/email_verify?email=example@examp
 
 ---
 
-## 2. Batch Single Email Verification
+# 2. Batch Email Verification (Up to 100 Emails)
 
-**Endpoint:**  
-`POST /batch_email_verify`
+### Endpoint
+POST /batch_email_verify
 
-**Example cURL Request:**
+### Example Request
 ```bash
 curl -X POST "https://api.datastreams.com/api/v1/batch_email_verify" \
   -H "Content-Type: application/json" \
-  -H "x-api-key: YOUR_API_SEC_KEY" \
+  -H "x-api-key: YOUR_API_KEY" \
   -d '{
         "emails": ["example@example.com", "example2@example.com"]
       }'
-````
+```
 
-**Success Response:**
-
+### Success Response
 ```json
 {
   "results": [
@@ -114,8 +109,7 @@ curl -X POST "https://api.datastreams.com/api/v1/batch_email_verify" \
 }
 ```
 
-**Error Response:**
-
+### Error Response
 ```json
 {
   "error": "Invalid or missing API credentials",
@@ -125,26 +119,37 @@ curl -X POST "https://api.datastreams.com/api/v1/batch_email_verify" \
 
 ---
 
-## Error Codes
+# Error Codes
 
-| Code | Description                                        |
-| ---- | -------------------------------------------------- |
-| 200  | ✅ Success/OK                                       |
-| 400  | Invalid request format                             |
-| 401  | Invalid or missing API credentials                 |
-| 402  | Insufficient credits. Please recharge your account |
-| 403  | Invalid or Inactive API key                        |
-| 451  | Access restricted                                  |
-| 502  | Email verification unavailable                     |
-| 429  | Rate limit exceeded                                |
-| 500  | Internal server error                              |
-
----
-
-> **Note:**
-> Ensure your account has enough verification credits. Bulk uploads support CSV/Excel files up to 50 MB. IP whitelisting is strongly recommended for production environments.
+| Code | Meaning                                               |
+|------|-------------------------------------------------------|
+| 200  | Success                                               |
+| 400  | Invalid request format                                |
+| 401  | Invalid or missing API credentials                    |
+| 402  | Insufficient credits                                  |
+| 403  | Invalid or inactive API key                           |
+| 429  | Rate limit exceeded                                   |
+| 451  | Access restricted                                     |
+| 500  | Internal server error                                 |
+| 502  | Email verification unavailable                        |
 
 ---
 
-**Support:**
-For assistance, contact: [support@datastreams.ai](mailto:support@datastreams.ai)
+# Notes & Best Practices
+
+- Ensure your account has **enough credits**
+- Always whitelist IPs for production
+- Batch request supports **2–100 emails**
+- SMTP verification time depends on mail server response
+
+---
+
+# Support
+
+For technical assistance:
+
+support@datastreams.ai
+
+---
+
+© 2025 DataStreams. All Rights Reserved.
