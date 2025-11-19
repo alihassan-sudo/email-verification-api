@@ -43,7 +43,7 @@ Users can create up to **five custom API keys** for project-level access control
 
 **Example cURL Request:**
 ```bash
-curl -X GET "https://api.datastreams.com/api/v1/email_verify?email=john@datastreams.com" \
+curl -X GET "https://api.datastreams.com/api/v1/email_verify?email=example@example.com" \
   -H "x-api-key: YOUR_API_KEY"
 ````
 
@@ -51,10 +51,10 @@ curl -X GET "https://api.datastreams.com/api/v1/email_verify?email=john@datastre
 
 ```json
 {
-  "email": "example@datastreams.com",
+  "email": "example@example.com",
   "email_status": "valid",
   "advance_status": "Deliverable",
-  "domain": "datastreams.com",
+  "domain": "example.com",
   "ai_rationale": "This email address has been confirmed as valid, so you're good to send messages there",
   "smtp_provider": "aspmx.l.google.com",
   "all_mx_records": ["aspmx.l.google.com","alt2.aspmx.l.google.com"]
@@ -64,7 +64,63 @@ curl -X GET "https://api.datastreams.com/api/v1/email_verify?email=john@datastre
 **Error Response:**
 
 ```json
-{"error": "Invalid or missing API credentials","status":"401"}
+{
+  "error": "Invalid or missing API credentials",
+  "status": 401
+}
+```
+
+---
+
+## 2. Batch Single Email Verification
+
+**Endpoint:**  
+`POST /batch_email_verify`
+
+**Example cURL Request:**
+```bash
+curl -X POST "https://api.datastreams.com/api/v1/batch_email_verify" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_SEC_KEY" \
+  -d '{
+        "emails": ["example@example.com", "example2@example.com"]
+      }'
+````
+
+**Success Response:**
+
+```json
+{
+  "results": [
+    {
+      "email": "example@example.com",
+      "email_status": "VALID",
+      "advance_status": "Deliverable",
+      "domain": "example.com",
+      "ai_rationale": "This email address has been confirmed as valid, so you're good to send messages there",
+      "smtp_provider": "aspmx.l.google.com",
+      "all_mx_records": ["aspmx.l.google.com", "alt2.aspmx.l.google.com"]
+    },
+    {
+      "email": "example2@example.com",
+      "email_status": "INVALID",
+      "advance_status": "Undeliverable",
+      "domain": "example.com",
+      "ai_rationale": "This email address doesn't exist, so refrain from sending emails",
+      "smtp_provider": "aspmx.l.google.com",
+      "all_mx_records": ["aspmx.l.google.com", "alt2.aspmx.l.google.com"]
+    }
+  ]
+}
+```
+
+**Error Response:**
+
+```json
+{
+  "error": "Invalid or missing API credentials",
+  "status": 401
+}
 ```
 
 ---
