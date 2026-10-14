@@ -1,11 +1,11 @@
-# DataStreams Email Verification API
+# ValidateEmails Email Verification API
 
 A powerful and scalable REST API for real-time, batch, and bulk email verification using DNS, MX, and SMTP checks.
 
 ---
 
 ## Base URL
-https://api.datastreams.com/api/v1/
+https://api.validateemails.co/api/v1/
 
 ## Authentication
 
@@ -27,7 +27,7 @@ You can create up to **5 custom API keys** with:
 |------------|--------------------------------------------------|
 | Real-Time  | Verify a single email instantly                  |
 | Batch      | Verify up to 100 emails in one request           |
-| Bulk       | Use the Datastreams.ai platform to accomplish it |
+| Bulk       | Use the ValidateEmails.ai platform to accomplish it |
 
 ---
 
@@ -38,7 +38,7 @@ GET /email_verify?email=EMAIL_ADDRESS
 
 ### Example Request
 ```bash
-curl -X GET "https://api.datastreams.com/api/v1/email_verify?email=example@example.com" \
+curl -X GET "https://api.validateemails.co/api/v1/email_verify?email=example@example.com" \
   -H "x-api-key: YOUR_API_KEY"
 ```
 
@@ -75,7 +75,7 @@ POST /batch_email_verify
 
 ### Example Request
 ```bash
-curl -X POST "https://api.datastreams.com/api/v1/batch_email_verify" \
+curl -X POST "https://api.validateemails.co/api/v1/batch_email_verify" \
   -H "Content-Type: application/json" \
   -H "x-api-key: YOUR_API_KEY" \
   -d '{
@@ -148,8 +148,8 @@ curl -X POST "https://api.datastreams.com/api/v1/batch_email_verify" \
 
 For technical assistance:
 
-support@datastreams.ai
+support@ValidateEmails.ai
 
 ---
 
-© 2025 DataStreams. All Rights Reserved.
+© 2025 ValidateEmails. All Rights Reserved.
